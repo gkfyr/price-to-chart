@@ -6,7 +6,11 @@ export async function GET() {
   try {
     const response = await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=150");
     if (!response.ok) {
-      throw new Error(`Failed to fetch data from Binance API: ${response.statusText}`);
+      const errorText = await response.text(); // 응답 본문을 가져와서 에러 원인 확인
+      console.error(
+        `Failed to fetch data from Binance API: ${response.status} - ${response.statusText} - ${errorText}`
+      );
+      throw new Error(`Failed to fetch data from Binance API: ${response.statusText} (${response.status})`);
     }
 
     const data = await response.json();

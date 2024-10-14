@@ -12,6 +12,7 @@ const EthCandleChartWss = () => {
     try {
       const response = await fetch("/api/getCandleData");
       const data = await response.json();
+      console.log(data);
       return data.candles;
     } catch (error) {
       console.error("Error fetching candle data:", error);
