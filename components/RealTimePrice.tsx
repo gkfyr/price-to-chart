@@ -29,7 +29,7 @@ const RealTimePrice = () => {
     <div>
       <h1>
         <span className="font-bold">BTC/USDT 실시간 가격:</span>{" "}
-        <span>{price ? `$${parseFloat(price).toFixed(2)}` : "Loading..."}</span>
+        <span className="font-bold">{price ? `$${parseFloat(price).toFixed(2)}` : "Loading..."}</span>
       </h1>
     </div>
   );
