@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
-import { getUpbitWebSocket } from "@/utils/websoket";
+import { getBithumbWebSocket, getUpbitWebSocket } from "@/utils/websoket";
 
-const UpbitPriceWssChart = () => {
+const BithumbPriceWssChart = () => {
   const [price, setPrice] = useState<string | null>(null); // 실시간 가격을 저장할 상태
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const candleSeriesRef = useRef<any>(null);
@@ -12,7 +12,7 @@ const UpbitPriceWssChart = () => {
   // Upbit 60분봉 데이터를 불러오는 함수
   const fetchCandleData = async () => {
     try {
-      const response = await fetch("/api/upbit-candles");
+      const response = await fetch("/api/bithumb-candles");
       const data = await response.json();
       console.log(data);
       // 데이터 시간순으로 오름차순 정렬
@@ -73,12 +73,12 @@ const UpbitPriceWssChart = () => {
       }
     });
     // WebSocket 연결 설정
-    const socket = getUpbitWebSocket();
+    const socket = getBithumbWebSocket();
 
     socket.onopen = () => {
       console.log("Connected to Upbit WebSocket");
       // 서버로 메시지 전송
-      const message = JSON.stringify([{ ticket: "test" }, { type: "ticker", codes: ["KRW-BTC"] }]);
+      const message = JSON.stringify([{ ticket: "test example" }, { type: "ticker", codes: ["KRW-BTC"] }]);
       socket.send(message);
     };
 
@@ -94,6 +94,7 @@ const UpbitPriceWssChart = () => {
       const text = await blob.text(); // Blob 데이터를 텍스트로 변환
       const data = JSON.parse(text); // 텍스트를 JSON으로 파싱
       setPrice(data.trade_price);
+      console.log(data);
 
       //   console.log(data.opening_price);
       //   기존 캔들 업데이트
@@ -124,7 +125,7 @@ const UpbitPriceWssChart = () => {
   return (
     <>
       <div className="w-full justify-between flex ">
-        <h1 className="font-bold">BTC 가격 차트 (Upbit) (1d)</h1>
+        <h1 className="font-bold">BTC 가격 차트 (Bithumb) (1d)</h1>
         <div>
           <h1>
             <span className="font-bold">BTC/KRW 실시간 가격:</span>{" "}
@@ -138,4 +139,4 @@ const UpbitPriceWssChart = () => {
   );
 };
 
-export default UpbitPriceWssChart;
+export default BithumbPriceWssChart;

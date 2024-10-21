@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 
 const BinancePriceWssChart = () => {
+  const [price, setPrice] = useState<string | null>(null); // 실시간 가격을 저장할 상태
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const candleSeriesRef = useRef<any>(null);
 
@@ -75,7 +76,7 @@ const BinancePriceWssChart = () => {
 
       if (message && message.k) {
         const candlestick = message.k;
-
+        setPrice(candlestick.c);
         const updatedCandle = {
           time: candlestick.t / 1000, // Unix timestamp (초 단위)
           open: parseFloat(candlestick.o),
@@ -97,7 +98,21 @@ const BinancePriceWssChart = () => {
     };
   }, []);
 
-  return <div ref={chartContainerRef} />;
+  return (
+    <>
+      <div className="w-full justify-between flex ">
+        <h1 className="font-bold">BTC 가격 차트 (Binance) (1h)</h1>
+        <div>
+          <h1>
+            <span className="font-bold">BTC/USDT 실시간 가격:</span>{" "}
+            <span className="font-bold">{price ? `$${parseFloat(price).toFixed(2)}` : "Loading..."}</span>
+          </h1>
+        </div>
+      </div>
+
+      <div ref={chartContainerRef} />
+    </>
+  );
 };
 
 export default BinancePriceWssChart;
