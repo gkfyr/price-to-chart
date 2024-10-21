@@ -10,7 +10,7 @@ const UpbitPriceWssChart = () => {
   // Upbit 60분봉 데이터를 불러오는 함수
   const fetchCandleData = async () => {
     try {
-      const response = await fetch("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=150");
+      const response = await fetch("/api/upbit-candles");
       const data = await response.json();
       console.log(data);
       // 데이터 시간순으로 오름차순 정렬
