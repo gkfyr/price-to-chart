@@ -11,7 +11,7 @@ const BinancePriceWssChart = () => {
   // REST API로 과거 캔들 데이터를 가져오는 함수
   const fetchCandleData = async () => {
     try {
-      const response = await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=150");
+      const response = await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150");
       const data = await response.json();
       const formattedData = data.map((candle: any) => ({
         time: candle[0] / 1000, // Unix timestamp (초 단위)
@@ -69,7 +69,7 @@ const BinancePriceWssChart = () => {
     });
 
     // 웹소켓 연결을 통한 실시간 데이터 수신
-    const socket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@kline_1h");
+    const socket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@kline_1d");
 
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);

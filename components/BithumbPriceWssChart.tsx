@@ -14,7 +14,6 @@ const BithumbPriceWssChart = () => {
     try {
       const response = await fetch("/api/bithumb-candles");
       const data = await response.json();
-      console.log(data);
       // 데이터 시간순으로 오름차순 정렬
       const candles = data
         .map((candle: any) => ({
@@ -94,7 +93,6 @@ const BithumbPriceWssChart = () => {
       const text = await blob.text(); // Blob 데이터를 텍스트로 변환
       const data = JSON.parse(text); // 텍스트를 JSON으로 파싱
       setPrice(data.trade_price);
-      console.log(data);
 
       //   console.log(data.opening_price);
       //   기존 캔들 업데이트
