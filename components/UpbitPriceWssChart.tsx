@@ -77,10 +77,7 @@ const UpbitPriceWssChart = () => {
     socket.onopen = () => {
       console.log("Connected to Upbit WebSocket");
       // 서버로 메시지 전송
-      const message = JSON.stringify([
-        { ticket: "test" },
-        { type: "ticker", codes: ["KRW-BTC"], is_only_realtime: true },
-      ]);
+      const message = JSON.stringify([{ ticket: "test" }, { type: "ticker", codes: ["KRW-BTC"] }]);
       socket.send(message);
     };
 
