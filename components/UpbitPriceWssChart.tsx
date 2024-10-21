@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
+import { getWebSocket } from "@/utils/websoket";
 
 const UpbitPriceWssChart = () => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
@@ -71,7 +72,7 @@ const UpbitPriceWssChart = () => {
       }
     });
     // WebSocket 연결 설정
-    const socket = new WebSocket("wss://api.upbit.com/websocket/v1");
+    const socket = getWebSocket();
 
     socket.onopen = () => {
       console.log("Connected to Upbit WebSocket");

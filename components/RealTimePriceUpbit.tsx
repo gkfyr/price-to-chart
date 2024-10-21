@@ -1,5 +1,6 @@
 "use client";
 
+import { getWebSocket } from "@/utils/websoket";
 import { useEffect, useRef, useState } from "react";
 
 const RealTimePriceUpbit = () => {
@@ -8,7 +9,7 @@ const RealTimePriceUpbit = () => {
 
   useEffect(() => {
     // WebSocket 연결 설정
-    const ws = new WebSocket("wss://api.upbit.com/websocket/v1");
+    const ws = getWebSocket();
 
     // 연결이 열리면 메시지 전송
     ws.onopen = () => {
