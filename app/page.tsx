@@ -19,7 +19,7 @@ export default function ChartPage() {
       <div className="mx-auto w-[800px] mt-20">
         <div className="w-full justify-between flex ">
           <h1 className="font-bold">BTC 가격 차트 (Upbit) (1d)</h1>
-          <RealTimePriceUpbit />
+          {/* <RealTimePriceUpbit /> */}
         </div>
         <UpbitPriceWssChart />
       </div>
