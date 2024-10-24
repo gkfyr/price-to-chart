@@ -14,16 +14,17 @@ const BithumbPriceWssChart = () => {
     try {
       const response = await fetch("/api/bithumb-candles");
       const data = await response.json();
+      // console.log(data);
       // 데이터 시간순으로 오름차순 정렬
       const candles = data
         .map((candle: any) => ({
-          time: Math.floor(new Date(candle.candle_date_time_kst).getTime() / 1000),
+          time: Math.floor((new Date(candle.candle_date_time_kst).getTime() + 32400000) / 1000),
           open: candle.opening_price,
           high: candle.high_price,
           low: candle.low_price,
           close: candle.trade_price,
         }))
-        .sort((a: any, b: any) => a.time - b.time); // 시간순 정렬
+        .reverse(); // 시간순 정렬
 
       return candles;
     } catch (error) {
@@ -75,7 +76,7 @@ const BithumbPriceWssChart = () => {
     const socket = getBithumbWebSocket();
 
     socket.onopen = () => {
-      console.log("Connected to Upbit WebSocket");
+      console.log("Connected to Bithumb WebSocket");
       // 서버로 메시지 전송
       const message = JSON.stringify([{ ticket: "test example" }, { type: "ticker", codes: ["KRW-BTC"] }]);
       socket.send(message);

@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch("https://api.bithumb.com/v1/candles/days?market=KRW-BTC&count=150", {
+    const response = await fetch("https://api.bithumb.com/v1/candles/days?market=KRW-BTC&count=120", {
       headers: {
         Accept: "application/json",
       },
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: "Failed to fetch data from Upbit API" }, { status: response.status });
+      return NextResponse.json({ error: "Failed to fetch data from Bithumb API" }, { status: response.status });
     }
 
     const data = await response.json();

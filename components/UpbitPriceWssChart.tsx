@@ -14,6 +14,7 @@ const UpbitPriceWssChart = () => {
     try {
       const response = await fetch("/api/upbit-candles");
       const data = await response.json();
+      console.log(data);
       // 데이터 시간순으로 오름차순 정렬
       const candles = data
         .map((candle: any) => ({
@@ -23,7 +24,7 @@ const UpbitPriceWssChart = () => {
           low: candle.low_price,
           close: candle.trade_price,
         }))
-        .sort((a: any, b: any) => a.time - b.time); // 시간순 정렬
+        .reverse(); // 시간순 정렬
 
       return candles;
     } catch (error) {

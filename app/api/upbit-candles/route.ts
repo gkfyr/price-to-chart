@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=150", {
+    const response = await fetch("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=120&to=", {
       headers: {
         Accept: "application/json",
       },
