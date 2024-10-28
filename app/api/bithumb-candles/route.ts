@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch("https://api.bithumb.com/v1/candles/days?market=KRW-BTC&count=120", {
+    const response = await fetch(`https://api.bithumb.com/v1/candles/days?market=KRW-BTC&count=120`, {
       headers: {
         Accept: "application/json",
       },

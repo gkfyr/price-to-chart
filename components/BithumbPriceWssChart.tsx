@@ -14,7 +14,7 @@ const BithumbPriceWssChart = () => {
     try {
       const response = await fetch("/api/bithumb-candles");
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       // 데이터 시간순으로 오름차순 정렬
       const candles = data
         .map((candle: any) => ({
