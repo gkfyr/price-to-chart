@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Price-to-Chart — Live BTC Charts Across Exchanges
+================================================
 
-## Getting Started
+Live candlestick charts for BTC aggregated from multiple exchanges (Binance, Upbit, Bithumb) using Lightweight Charts and WebSocket streams. Built with Next.js App Router and Tailwind CSS.
 
-First, run the development server:
+Screenshots
+![Main Dashboard](public/image.png)
 
+Key Features
+- Real‑time price updates via WebSockets (Binance, Upbit, Bithumb)
+- Serverless API routes proxy daily candles for KRW markets (avoid CORS)
+- Responsive, card‑based layout with dark‑friendly styling
+- Lightweight Charts for smooth, high‑performance rendering
+
+Tech Stack
+- Next.js 14 (App Router)
+- React 18
+- Tailwind CSS
+- TradingView Lightweight Charts
+
+Getting Started
+1) Install dependencies
+```bash
+npm install
+```
+2) Run the development server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+3) Open the app
+Visit http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Project Structure
+- `app/page.tsx`: Landing page that renders three exchange cards
+- `components/BinancePriceWssChart.tsx`: BTC/USDT chart with Binance REST (history) + WS (live)
+- `components/UpbitPriceWssChart.tsx`: BTC/KRW chart using internal API + Upbit WS
+- `components/BithumbPriceWssChart.tsx`: BTC/KRW chart using internal API + Bithumb WS
+- `app/api/upbit-candles/route.ts`: Proxies Upbit daily candles (KRW-BTC)
+- `app/api/bithumb-candles/route.ts`: Proxies Bithumb daily candles (KRW-BTC)
+- `utils/websoket.ts`: Small helpers to open Upbit/Bithumb WS connections
+- `app/globals.css`, `tailwind.config.ts`: Global styles and Tailwind config
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+How It Works
+- Historical candles:
+  - Binance: Fetched directly from Binance REST in the browser for BTC/USDT.
+  - Upbit/Bithumb: Fetched via Next.js API routes to avoid CORS and ensure no-store caching.
+- Live updates:
+  - Exchange WebSockets stream ticker/candlestick updates; charts update with `series.update(...)`.
+- Responsiveness:
+  - The page arranges charts in a 1→2→3 column grid and resizes charts on window changes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Available Scripts
+- `npm run dev`: Start dev server
+- `npm run build`: Build for production
+- `npm run start`: Run production build
+- `npm run lint`: Lint using Next.js ESLint config
 
-## Learn More
+Notes / Limitations
+- Public APIs are used; rate limits may apply per exchange.
+- Timeframes: examples here use daily candles; adjust endpoints/intervals as needed.
+- KRW formatting is kept simple in UI; customize number formatting to your locale if required.
 
-To learn more about Next.js, take a look at the following resources:
+Customization Tips
+- To change symbols or intervals, update REST endpoints and WS subscriptions in:
+  - `components/BinancePriceWssChart.tsx`
+  - `components/UpbitPriceWssChart.tsx`
+  - `components/BithumbPriceWssChart.tsx`
+- To modify layout/theme, tweak Tailwind classes in `app/page.tsx` and global styles.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Security / CORS
+- Upbit and Bithumb candles are proxied through Next.js API routes to avoid client‑side CORS issues and disable caching (`no-store`). WebSocket connections are made directly from the client.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+License
+- This project is for educational/demo purposes. Review and comply with each exchange’s API Terms before production use.
