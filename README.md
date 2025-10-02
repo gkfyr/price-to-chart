@@ -71,4 +71,4 @@ Security / CORS
 - Upbit and Bithumb candles are proxied through Next.js API routes to avoid client‑side CORS issues and disable caching (`no-store`). WebSocket connections are made directly from the client.
 
 License
-- This project is for educational/demo purposes. Review and comply with each exchange’s API Terms before production use.
+- MIT — see `LICENSE` for details.
