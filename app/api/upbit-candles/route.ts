@@ -9,7 +9,7 @@ export async function GET() {
   try {
     const currentISOTime = new Date().toISOString();
     const response = await fetch(
-      `https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=120&to=${currentISOTime}`,
+      `https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=300&to=${currentISOTime}`,
       {
         headers: {
           Accept: "application/json",

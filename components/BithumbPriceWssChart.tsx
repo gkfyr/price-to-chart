@@ -124,10 +124,10 @@ const BithumbPriceWssChart = () => {
   return (
     <>
       <div className="w-full justify-between flex ">
-        <h1 className="font-bold">BTC 가격 차트 (Bithumb) (1d)</h1>
+        <h1 className="font-bold">Bithumb BTC (1D)</h1>
         <div>
           <h1>
-            <span className="font-bold">BTC/KRW 실시간 가격:</span>{" "}
+            <span className="font-bold">Live Price (BTC/KRW):</span>{" "}
             <span className="font-bold">{price ? `₩${parseFloat(price)}` : "Loading..."}</span>
           </h1>
         </div>

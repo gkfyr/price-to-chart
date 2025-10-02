@@ -11,7 +11,7 @@ const BinancePriceWssChart = () => {
   // REST API로 과거 캔들 데이터를 가져오는 함수
   const fetchCandleData = async () => {
     try {
-      const response = await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150");
+      const response = await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=200");
       const data = await response.json();
       const formattedData = data.map((candle: any) => ({
         time: candle[0] / 1000, // Unix timestamp (초 단위)
@@ -101,10 +101,10 @@ const BinancePriceWssChart = () => {
   return (
     <>
       <div className="w-full justify-between flex ">
-        <h1 className="font-bold">BTC 가격 차트 (Binance) (1h)</h1>
+        <h1 className="font-bold">Binance BTC (1D)</h1>
         <div>
           <h1>
-            <span className="font-bold">BTC/USDT 실시간 가격:</span>{" "}
+            <span className="font-bold">Live Price (BTC/USDT):</span>{" "}
             <span className="font-bold">{price ? `$${parseFloat(price).toFixed(2)}` : "Loading..."}</span>
           </h1>
         </div>
