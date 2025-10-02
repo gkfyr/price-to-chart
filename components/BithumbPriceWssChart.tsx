@@ -12,7 +12,7 @@ const BithumbPriceWssChart = () => {
   // Upbit 60분봉 데이터를 불러오는 함수
   const fetchCandleData = async () => {
     try {
-      const response = await fetch("/api/bithumb-candles");
+      const response = await fetch("/api/bithumb-candles", { cache: "no-store" });
       const data = await response.json();
       console.log(data);
       // 데이터 시간순으로 오름차순 정렬

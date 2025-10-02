@@ -1,6 +1,10 @@
 // app/api/upbit-candles/route.ts
 import { NextResponse } from "next/server";
 
+// Ensure this route is always dynamic and never cached
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const currentISOTime = new Date().toISOString();
@@ -10,6 +14,7 @@ export async function GET() {
         headers: {
           Accept: "application/json",
         },
+        cache: "no-store",
       }
     );
 
@@ -18,7 +23,14 @@ export async function GET() {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
   } catch (error) {
     console.error("Error fetching candle data:", error);
     return NextResponse.json({ error: "An error occurred while fetching candle data" }, { status: 500 });
